@@ -60,8 +60,10 @@ func (v *Veth) Initialize(config *Network, networkState *NetworkState) error {
 	if err := ChangeInterfaceName(vethChild, defaultDevice); err != nil {
 		return fmt.Errorf("change %s to %s %s", vethChild, defaultDevice, err)
 	}
-	if err := SetInterfaceIp(defaultDevice, config.Address); err != nil {
-		return fmt.Errorf("set %s ip %s", defaultDevice, err)
+	for _, addr := range config.Addresses {
+		if err := AddInterfaceIp(defaultDevice, addr); err != nil {
+			return fmt.Errorf("add %s ip %s", defaultDevice, err)
+		}
 	}
 	if err := SetMtu(defaultDevice, config.Mtu); err != nil {
 		return fmt.Errorf("set %s mtu to %d %s", defaultDevice, config.Mtu, err)
@@ -69,9 +71,9 @@ func (v *Veth) Initialize(config *Network, networkState *NetworkState) error {
 	if err := InterfaceUp(defaultDevice); err != nil {
 		return fmt.Errorf("%s up %s", defaultDevice, err)
 	}
-	if config.Gateway != "" {
-		if err := SetDefaultGateway(config.Gateway, defaultDevice); err != nil {
-			return fmt.Errorf("set gateway to %s on device %s failed with %s", config.Gateway, defaultDevice, err)
+	for _, route := range config.Routes {
+		if err := AddRoute(route, defaultDevice); err != nil {
+			return fmt.Errorf("add route (dest: %s src: %s gw: %s) on device %s failed with %s", route.Destination, route.Source, route.Gateway, defaultDevice, err)
 		}
 	}
 	return nil

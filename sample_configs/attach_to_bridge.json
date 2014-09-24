@@ -184,16 +184,16 @@
     },
     "networks": [
         {
-            "address": "127.0.0.1/0",
-            "gateway": "localhost",
+            "addresses": ["127.0.0.1/0"],
+            "routes": [{"gateway": "localhost"}],
             "mtu": 1500,
             "type": "loopback"
         },
         {
-            "address": "172.17.0.101/16",
+            "addresses": ["172.17.0.101/16"],
             "bridge": "docker0",
             "veth_prefix": "veth",
-            "gateway": "172.17.42.1",
+            "routes": [{"gateway": "172.17.42.1"}],
             "mtu": 1500,
             "type": "veth"
         }

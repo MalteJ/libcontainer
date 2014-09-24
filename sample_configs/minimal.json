@@ -190,8 +190,8 @@
     },
     "networks": [
         {
-            "address": "127.0.0.1/0",
-            "gateway": "localhost",
+            "addresses": ["127.0.0.1/0"],
+            "routes": [{"gateway": "localhost"}],
             "mtu": 1500,
             "type": "loopback"
         }

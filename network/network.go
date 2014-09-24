@@ -64,11 +64,11 @@ func SetInterfaceMaster(name, master string) error {
 	return netlink.AddToBridge(iface, masterIface)
 }
 
-func SetDefaultGateway(ip, ifaceName string) error {
-	return netlink.AddDefaultGw(ip, ifaceName)
+func AddRoute(route Route, ifaceName string) error {
+	return netlink.AddRoute(route.Destination, route.Source, route.Gateway, ifaceName)
 }
 
-func SetInterfaceIp(name string, rawIp string) error {
+func AddInterfaceIp(name string, rawIp string) error {
 	iface, err := net.InterfaceByName(name)
 	if err != nil {
 		return err

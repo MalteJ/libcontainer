@@ -96,8 +96,8 @@ func TestConfigJsonFormat(t *testing.T) {
 				t.Fail()
 			}
 
-			if n.Address != "172.17.0.101/16" {
-				t.Logf("veth address should be 172.17.0.101/61 but received %q", n.Address)
+			if n.Addresses[0] != "172.17.0.101/16" {
+				t.Logf("veth address should be 172.17.0.101/61 but received %q", n.Addresses[0])
 				t.Fail()
 			}
 
@@ -106,8 +106,8 @@ func TestConfigJsonFormat(t *testing.T) {
 				t.Fail()
 			}
 
-			if n.Gateway != "172.17.42.1" {
-				t.Logf("veth gateway should be 172.17.42.1 but received %q", n.Gateway)
+			if n.Routes[0].Gateway != "172.17.42.1" {
+				t.Logf("veth gateway should be 172.17.42.1 but received %q", n.Routes[0].Gateway)
 				t.Fail()
 			}
 
