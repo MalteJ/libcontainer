@@ -68,6 +68,14 @@ func AddRoute(route Route, ifaceName string) error {
 	return netlink.AddRoute(route.Destination, route.Source, route.Gateway, ifaceName)
 }
 
+func SetInterfaceMac(name string, mac string) error {
+	iface, err := net.InterfaceByName(name)
+	if err != nil {
+		return err
+	}
+	return netlink.NetworkSetMacAddress(iface, mac)
+}
+
 func AddInterfaceIp(name string, rawIp string) error {
 	iface, err := net.InterfaceByName(name)
 	if err != nil {
